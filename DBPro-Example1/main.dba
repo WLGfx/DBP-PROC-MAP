@@ -1,0 +1,15 @@
+Rem Project: Dark Basic Pro Project
+Rem Created: Monday, May 21, 2012
+
+Rem ***** Main Source File *****
+
+sync rate 60
+sync on
+sync
+
+make object sphere 1, 10
+
+PMAP SET MAP DATA 100,0,0,1
+PMAP GENERATE
+
+wait key

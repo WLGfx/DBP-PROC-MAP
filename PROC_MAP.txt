@@ -1,0 +1,134 @@
+PROC_MAP plugin by Carl S Norwood (WLGfx 2012)
+
+Procedural 3D Level Generator V4.1 (beta)
+
+This plugin is provided free to the Dark Basic Pro community.
+
+You may use this plugin for anything you like with no restrictions.
+
+If you really want to, then just add a credit mentioning me.
+
+-----------------------------------------------------------
+
+Installation:
+
+Copy the PROC_MAP.dll to compiler/plugins-user dir
+Copy the PROC_MAP.ini to editor/keywords dir
+
+(both in your DBPro installation folder)
+
+-----------------------------------------------------------
+
+This plugin will generate a complete 3D model made up of segments
+depending on the map size you specify. Each segment generated will
+either be a room or a corridor.
+
+Both the rooms and corridors have an inner set of edges and an
+outer set of edges. Some of the functions will provide access for
+getting the centre coordinates of either an inner or outer edge.
+This is useful for placing objects at specific positions within
+the 3d model that's been generated. Using the maps height, you can also
+place items not just on the floor of the level but also on the walls
+and the roof. Item placement can be made better also by fetching the
+edges angle of rotation.
+
+You can also determine the type of any segment whether it is a room
+or a corridor. Use this for customising your own texturing or coloring
+the segments.
+
+TODO: add the functions to reteive the rooms entry edges so doors can
+be placed on the map.
+
+-----------------------------------------------------------
+
+Commands and Functions:
+
+Note, that the deafult values in the first few functions are a guide
+line as to how the algorithm is to be setup.
+
+PMAP SET MAP DATA size, seed, height, tess
+	size 	= number of segments to generate
+	seed 	= random seed setting
+	height	= noise height to create the sloping dungeon
+	tess	= 0 no tessellation / 1 tessellation (only 1 level for now)
+
+PMAP SET CORRIDOR lmin, lmax, amin, amax, smin, smax
+	lmin/lmax	= corridors edge length range (defaults 80, 120)
+	amin/amax	= angle range for corridor (defaults 60, 120)
+	smin/smax	= valid segment creation range (defaults 6, 16)
+
+PMAP SET ROOM lmin, lmax, smin, smax
+	lmin/lmax	= rooms outer edge length range (defaults 80, 150)
+	smin/smax	= rooms outer edges count range (defaults 10, 20)
+
+PMAP SEL IN EDGE seg, edge
+	seg		= segment number
+	edge	= edge number
+	(selects the inner edge for retreiving data fast see below)
+
+PMAP SEL OUT EDGE seg, edge
+	seg		= segment number
+	edge	= edge number
+	(selects the outer edge for retreiving data fast see below)
+
+x# = PMAP EDGE CENTRE X()
+	(retreives the x coordinate of the centre of the selected edge)
+
+y# = PMAP EDGE CENTRE Y()
+
+z# = PMAP EDGE CENTRE Z()
+
+a# = PMAP EDGE ANGLE()
+	(returns the edges angle on the x and z axis, useful for 
+	rotating objects being placed)
+
+i = PMAP GET IN COUNT(seg)
+	(gets the number of inner edges of a segment)
+
+o = PMAP GET OUT COUNT(seg)
+	(gets the number of outer edges of a segment)
+
+PMAP TEXTURE CORRIDOR floor$, wall$, roof$
+	(Load and sets the corridors textures, done before generation)
+
+PMAP TEXTURE ROOM floor$, wall$, roof$
+	(Load and sets the rooms textures, done before generation)
+	
+PMAP TEXTURE CORRIDOR IDS floor, wall, roof
+	(Set the texture IDs for the corridors, done before generation)
+
+PMAP TEXTURE ROOM IDS floor, wall, roof
+	(Set the texture IDs for the rooms, done before generation)
+
+PMAP GENERATE
+	(Generates and creates the 3D level)
+
+ID = PMAP OBJECT ID()
+	(Returns the levels object number)
+
+PMAP CLEAR ALL
+	(Frees all the images, object and other stuff used)
+
+PMAP TEXTURE SEGMENT FLOOR seg, ID
+	seg = segment number
+	ID  = image ID
+	(Textures the floor of a segment)
+
+PMAP TEXTURE SEGMENT WALL seg, ID
+	(see above)
+
+PMAP TEXTURE SEGMENT ROOF seg, ID
+	(see above)
+
+PMAP COLOR SEGMENT FLOOR seg, color
+	(sets the color of a segments floor)
+
+PMAP COLOR SEGMENT WALL seg, color
+	(as above)
+
+PMAP COLOR SEGMENT ROOF seg, color
+	(as above)
+
+t = PMAP SEGMENT TYPE(seg)
+	(returns 0 if corridor and 1 if room)
+

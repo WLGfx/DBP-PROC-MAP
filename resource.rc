@@ -1,0 +1,58 @@
+#include "resource.h"
+
+STRINGTABLE
+{
+	// Setup functions
+
+	IDS_STRING1		"PMAP SET MAP DATA%LLLL%?pm_set_map@@YAXHHHH@Z%size,seed,height,tess"
+	IDS_STRING2		"PMAP SET CORRIDOR%LLLLLL%?pm_set_corridor@@YAXHHHHHH@Z%lmin,lmax,amin,amax,smin,smax"
+	IDS_STRING3		"PMAP SET ROOM%LLLL%?pm_set_room@@YAXHHHH@Z%lmin,lmax,smin,smax"
+
+	// Edge functions
+
+	IDS_STRING4		"PMAP SEL IN EDGE%LL%?pm_sel_in_edge@@YAXHH@Z%seg,edge"
+	IDS_STRING5		"PMAP SEL OUT EDGE%LL%?pm_sel_out_edge@@YAXHH@Z%seg,edge"
+	IDS_STRING6		"PMAP GET IN COUNT[%LL%?pm_get_in_count@@YAHH@Z%seg"
+	IDS_STRING7		"PMAP GET OUT COUNT[%LL%?pm_get_out_count@@YAHH@Z%seg"
+	IDS_STRING8		"PMAP EDGE CENTRE X[%F%pm_edge_centre_x%"
+	IDS_STRING9		"PMAP EDGE CENTRE Y[%F%pm_edge_centre_y%"
+	IDS_STRING10	"PMAP EDGE CENTRE Z[%F%pm_edge_centre_z%"
+	IDS_STRING11	"PMAP EDGE ANGLE[%F%pm_edge_angle%"
+
+	// Setup textures
+
+	IDS_STRING12	"PMAP TEXTURE CORRIDOR%SSS%?pm_texture_corridor@@YAXPAD00@Z%floor,wall,roof"
+	IDS_STRING13	"PMAP TEXTURE ROOM%SSS%?pm_texture_room@@YAXPAD00@Z%floor,wall,roof"
+	IDS_STRING14	"PMAP TEXTURE CORRIDOR IDS%LLL%pm_texture_corridor_ids%"
+	IDS_STRING15	"PMAP TEXTURE ROOM IDS%LLL%pm_texture_room_ids%"
+
+	// Main generate function
+
+	IDS_STRING16	"PMAP GENERATE%0%?pm_generate@@YAXXZ%"
+
+	// Return objects ID number
+
+	IDS_STRING17	"PMAP OBJECT ID[%L%?pm_get_object@@YAKXZ%"
+
+	// Clear all data
+
+	IDS_STRING18	"PMAP CLEAR ALL%0%pm_clear_all%"
+
+	// Get the height from floor to roof
+
+	IDS_STRING19	"PMAP GET HEIGHT[%F%pm_max_size%"
+
+	// re-texture a segment
+
+	IDS_STRING20	"PMAP TEXTURE SEGMENT FLOOR%LL%pm_texture_segment_floor%"
+	IDS_STRING21	"PMAP TEXTURE SEGMENT WALL%LL%pm_texture_segment_wall%"
+	IDS_STRING22	"PMAP TEXTURE SEGMENT ROOF%LL%pm_texture_segment_roof%"
+
+	IDS_STRING23	"PMAP COLOR SEGMENT FLOOR%LL%pm_color_segment_floor%"
+	IDS_STRING24	"PMAP COLOR SEGMENT WALL%LL%pm_color_segment_wall%"
+	IDS_STRING25	"PMAP COLOR SEGMENT ROOF%LL%pm_color_segment_roof%"
+
+	// return segment type
+
+	IDS_STRING26	"PMAP SEGMENT TYPE[%LL%pm_segment_type%"
+}

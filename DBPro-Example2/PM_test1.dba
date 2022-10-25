@@ -1,0 +1,106 @@
+sync on
+sync rate 60
+sync
+
+set window title "PROC MAP - Test basic settings"
+
+` set the map data
+` 100 Segments, Seed=0, noise height=200, and tessellate it
+
+PMAP SET MAP DATA 100, 0, 200, 1
+
+` Set the room and corridor textures (replace these at your leisure)
+
+` TAKE YOUR PICK WHICH SET TO TRY IT OUT WITH
+
+` If you don't set textures then default colours will be used instead 
+
+PMAP TEXTURE CORRIDOR "cfloor.dds", "cwall.dds", "croof.dds"
+PMAP TEXTURE ROOM "rfloor.dds", "rwall.dds", "rroof.dds"
+
+`PMAP TEXTURE CORRIDOR "CARLTEX1.jpg", "CARLTEX2.jpg", "CARLTEX3.jpg"
+`PMAP TEXTURE ROOM     "CARLTEX4.jpg", "CARLTEX5.jpg", "CARLTEX4.jpg"
+
+` Now let's generate the 3D object
+
+PMAP GENERATE
+
+` select the first edge so we can position the camera
+
+PMAP SEL IN EDGE 0,0
+
+edgex# = PMAP EDGE CENTRE X()
+edgey# = PMAP EDGE CENTRE Y()
+edgez# = PMAP EDGE CENTRE Z()
+
+position camera edgex#, edgey# + 20, edgez#
+
+` Make the object a bit prettier to view
+
+ObjID = PMAP OBJECT ID()
+
+Set Object Specular ObjID, 0xffffff
+Set Object Specular Power ObjID, 10
+
+` create a nice lovely light and set scene lighting
+
+make light 1
+
+set ambient light 5
+color backdrop 0x440000
+fog on
+fog color 0x000000
+fog distance 600
+
+` Now for the main loop
+
+mspeed# = 4.0       ` camera movement speed
+wireframe = 0       ` wireframe flag
+
+do
+    ` get mouse movement
+    
+    mx# = mousemovex() / 4.0
+    my# = mousemovey() / 4.0
+    
+    ` mouse view controls for camera
+    
+    yrotate camera wrapvalue( camera angle y() + mx# )
+    xrotate camera wrapvalue( camera angle x() + my# )
+    
+    ` check the cursor keys
+    
+    if upkey() then move camera mspeed#
+    if downkey() then move camera -mspeed#
+    
+    ` need Matrix1 Utils for the next two commands
+    
+    if leftkey() then move camera left mspeed#
+    if rightkey() then move camera right mspeed#
+    
+    ` display some details
+    
+    `text 0,0,"FPS: "+str$(screen fps())
+    text 0,12,"X="+str$(edgex#)+" : Y="+str$(edgey#)+" : Z="+str$(edgez#)
+    
+    ` move the light to the cameras position
+    
+    position light 1, camera position x(), camera position y(), camera position z()
+    
+    ` check the wireframe change settings
+    
+    if keystate(17) = 1 and wireframe = 0
+        set object wireframe ObjID, 1
+        wireframe = 1
+    endif
+    
+    if keystate(17) = 0 and wireframe = 1
+        set object wireframe ObjID, 0
+        wireframe = 0
+    endif
+    
+    sync
+    
+LOOP
+
+end
